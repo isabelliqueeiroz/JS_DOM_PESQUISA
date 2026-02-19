@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ExpoMoto - Edição Harley Davidson</title>
+  <link rel="shortcut icon" href="img/motocicleta.png" type="image/x-icon">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* === SEÇÃO MOTOS === */
+    #motos {
+      background-color: #1c1c1c;
+      color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      margin: 40px;
+    }
+
+    #motos input {
+      padding: 10px;
+      width: 200px;
+    }
+
+    #motos button {
+      padding: 10px 16px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    #lista-motos li {
+      background-color: #333;
+      margin-top: 8px;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #lista-motos li:hover {
+      background-color: #E57200;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== CONTEÚDO ORIGINAL ===== -->
+  <header id="event-subscription">
+    <div id="disclaimer">
+      <h2 id="main-title">ExpoMoto</h2>
+      <p class="about-event">Um evento para acelerar seu coração</p>
+      <p>Data do evento:</p>
+      <p class="event-date">Domingo, 25 de Maio, a partir das 10h</p>
+    </div>
+
+    <div id="subscription-form">
+      <p>Preencha o formulário para receber os detalhes do evento</p>
+      <form id="form-cadastro">
+        <label>Nome</label>
+        <input type="text" id="name" placeholder="Digite seu nome">
+
+        <input type="submit" class="btn" value="Quero me inscrever">
+      </form>
+    </div>
+  </header>
+
+  <!-- ===== NOVA SEÇÃO (IMAGEM) ===== -->
+  <section id="motos">
+    <h2>Motos que quero testar:</h2>
+    <p>Adicione modelos e clique neles para remover da lista.</p>
+
+    <input type="text" id="input-moto" placeholder="Ex: Fat Boy">
+    <button id="btn-adicionar">Adicionar</button>
+
+    <ul id="lista-motos"></ul>
+  </section>
+
+  <script>
+    /* ==================================================
+       1. O QUE É O DOM?
+       O DOM representa todos os elementos HTML como objetos
+       que o JavaScript pode acessar e modificar.
+    ================================================== */
+
+    // Exemplo simples: modificar texto e cor
+    const titulo = document.querySelector('#main-title');
+    titulo.textContent = "ExpoMoto: Harley Davidson Edition";
+    titulo.style.color = "#E57200";
+
+    /* ==================================================
+       2. SELEÇÃO E MODIFICAÇÃO DE ELEMENTOS
+       getElementById() e querySelector()
+    ================================================== */
+
+    const formulario = document.getElementById('form-cadastro');
+    const botao = document.querySelector('.btn');
+
+    formulario.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById('name').value;
+
+      if (nome === "") {
+        alert("Preencha o nome!");
+      } else {
+        botao.value = "Inscrição realizada!";
+        botao.style.backgroundColor = "green";
+        alert(`Olá ${nome}, inscrição confirmada!`);
+      }
+    });
+
+    /* ==================================================
+       3. EVENTOS NO DOM
+       addEventListener()
+    ================================================== */
+
+    const botaoAdicionar = document.getElementById('btn-adicionar');
+
+    botaoAdicionar.addEventListener('click', function() {
+      adicionarMoto();
+    });
+
+    /* ==================================================
+       4. CRIAÇÃO E REMOÇÃO DE ELEMENTOS
+       createElement() e appendChild()
+    ================================================== */
+
+    const lista = document.getElementById('lista-motos');
+    const inputMoto = document.getElementById('input-moto');
+
+    function adicionarMoto() {
+      if (inputMoto.value === "") {
+        alert("Digite o nome da moto!");
+        return;
+      }
+
+      // Cria o elemento <li>
+      const item = document.createElement('li');
+      item.textContent = inputMoto.value;
+
+      // Remove o item ao clicar
+      item.addEventListener('click', function() {
+        lista.removeChild(item);
+      });
+
+      // Adiciona na lista
+      lista.appendChild(item);
+
+      // Limpa o input
+      inputMoto.value = "";
+    }
+  </script>
+
+</body>
+</html>
